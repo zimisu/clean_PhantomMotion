@@ -27,16 +27,20 @@
 @property(nonatomic, weak) IBOutlet UIButton* coordinateSys;
 
 @property (weak, nonatomic) IBOutlet UIButton *enableVirtualStickButton;
+@property (weak, nonatomic) IBOutlet UIButton *startLeapmotion;
 
 @property (weak, nonatomic) IBOutlet UIButton *simulatorButton;
 @property (weak, nonatomic) IBOutlet UILabel *simulatorStateLabel;
+@property (weak, nonatomic) IBOutlet UITextView *logFiled;
 @property (assign, nonatomic) BOOL isSimulatorOn;
+@property (assign, nonatomic) BOOL leapmotionEnable;
 
 -(IBAction) onEnterVirtualStickControlButtonClicked:(id)sender;
 -(IBAction) onExitVirtualStickControlButtonClicked:(id)sender;
 -(IBAction) onTakeoffButtonClicked:(id)sender;
 -(IBAction) onCoordinateSysButtonClicked:(id)sender;
 - (IBAction)onSimulatorButtonClicked:(id)sender;
+-(IBAction) onStartLeapmotion:(id)sender;
 
 @end
 
@@ -46,6 +50,38 @@
     float mYVelocity;
     float mYaw;
     float mThrottle;
+}
+
+- (void)getLeapmotionData {
+    // HTTP GET: get data from leapmotion server
+    NSURL *url = [NSURL URLWithString:@"http://172.20.10.2:2333/file.txt"];
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:10];
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:nil
+                                                     error:nil];
+    NSString *str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+    
+    [self.logFiled setText:str];
+    
+    // set timeout
+    if (self.leapmotionEnable) {
+        dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * 0.5);
+        dispatch_after(delay, dispatch_get_main_queue(), ^(void){
+            [self getLeapmotionData];
+        });
+    }
+}
+
+- (void)onStartLeapmotion:(id)sender {
+    if (!self.leapmotionEnable) {
+        self.leapmotionEnable = YES;
+        [self.startLeapmotion setTitle:@"Finish Leapmotion" forState:UIControlStateNormal];
+        
+        [self getLeapmotionData];
+    } else {
+        [self.startLeapmotion setTitle:@"Start Leapmotion" forState:UIControlStateNormal];
+        self.leapmotionEnable = NO;
+    }
 }
 
 - (void)viewDidLoad
