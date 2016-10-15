@@ -30,7 +30,7 @@
     [super viewDidLoad];
     
     //Register App with App Key
-    NSString* appKey = @""; //TODO: Please enter your App Key here
+    NSString* appKey = @"bb85b1920f67e39df01cbced"; //TODO: Please enter your App Key here
     
     if ([appKey length] == 0) {
         ShowResult(@"Please enter your app key.");

@@ -104,6 +104,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.leapmotionEnable = NO;
     DJIFlightController* fc = [DemoComponentHelper fetchFlightController];
     if (fc && fc.simulator) {
         self.isSimulatorOn = fc.simulator.isSimulatorStarted;
