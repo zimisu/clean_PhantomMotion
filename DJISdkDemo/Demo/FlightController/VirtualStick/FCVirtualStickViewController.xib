@@ -13,6 +13,10 @@
                 <outlet property="joystickLeft" destination="8" id="1y0-AU-ed9"/>
                 <outlet property="joystickRight" destination="DYw-WO-bdf" id="OTc-1s-qd9"/>
                 <outlet property="logFiled" destination="0fd-xK-hdz" id="ArB-0w-GH3"/>
+                <outlet property="logLabel0" destination="oL5-ue-KuJ" id="WDZ-Gv-cEY"/>
+                <outlet property="logLabel1" destination="QXs-YP-2rV" id="43L-Cf-Hba"/>
+                <outlet property="logLabel2" destination="RFu-IT-yTh" id="NKR-4f-QUT"/>
+                <outlet property="logLabel3" destination="FCX-Zc-f3x" id="dV7-Uo-ozl"/>
                 <outlet property="simulatorButton" destination="YY4-Ah-sxg" id="API-0T-Cfq"/>
                 <outlet property="simulatorStateLabel" destination="r5u-pF-1aF" id="Syn-QZ-bRa"/>
                 <outlet property="startLeapmotion" destination="wCU-2V-FYK" id="dSS-oP-ONl"/>
@@ -326,6 +330,34 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oL5-ue-KuJ">
+                    <frame key="frameInset" minX="118" minY="83" width="153" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXs-YP-2rV">
+                    <frame key="frameInset" minX="318" minY="83" width="143" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RFu-IT-yTh">
+                    <frame key="frameInset" minX="118" minY="120" width="153" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FCX-Zc-f3x">
+                    <frame key="frameInset" minX="318" minY="120" width="143" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>

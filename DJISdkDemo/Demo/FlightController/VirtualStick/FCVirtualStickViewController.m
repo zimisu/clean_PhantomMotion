@@ -32,6 +32,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *simulatorButton;
 @property (weak, nonatomic) IBOutlet UILabel *simulatorStateLabel;
 @property (weak, nonatomic) IBOutlet UITextView *logFiled;
+@property (weak, nonatomic) IBOutlet UILabel *logLabel0;
+@property (weak, nonatomic) IBOutlet UILabel *logLabel1;
+@property (weak, nonatomic) IBOutlet UILabel *logLabel2;
+@property (weak, nonatomic) IBOutlet UILabel *logLabel3;
 @property (assign, nonatomic) BOOL isSimulatorOn;
 @property (assign, nonatomic) BOOL leapmotionEnable;
 
@@ -54,6 +58,7 @@
 
 - (void)getLeapmotionData {
     // HTTP GET: get data from leapmotion server
+    if (!self.leapmotionEnable) return;
     NSURL *url = [NSURL URLWithString:@"http://172.20.10.2:2333/file.txt"];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:10];
     NSData *data = [NSURLConnection sendSynchronousRequest:request
@@ -63,13 +68,32 @@
     
     [self.logFiled setText:str];
     
-    // set timeout
-    if (self.leapmotionEnable) {
-        dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * 0.5);
-        dispatch_after(delay, dispatch_get_main_queue(), ^(void){
-            [self getLeapmotionData];
-        });
+    NSArray *pos = [str componentsSeparatedByString:@":"];
+    
+    @try {
+        if ([pos count]) {
+            self.logLabel0.text = pos[0];
+            self.logLabel1.text = pos[1];
+            self.logLabel2.text = pos[2];
+            self.logLabel3.text = pos[3];
+            mYVelocity = [pos[0] floatValue] * 15;
+            mXVelocity = [pos[1] floatValue] * 0;
+            mYaw = [pos[2] floatValue] * 0;
+            mThrottle = [pos[3] floatValue] * 0;
+            [self updateJoystick];
+        }
+    } @catch (NSException *exception) {
+        
+    } @finally {
+        // set timeout
+        if (self.leapmotionEnable) {
+            dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * 0.2);
+            dispatch_after(delay, dispatch_get_main_queue(), ^(void){
+                [self getLeapmotionData];
+            });
+        }
     }
+    
 }
 
 - (void)onStartLeapmotion:(id)sender {
@@ -104,7 +128,6 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.leapmotionEnable = NO;
     DJIFlightController* fc = [DemoComponentHelper fetchFlightController];
     if (fc && fc.simulator) {
         self.isSimulatorOn = fc.simulator.isSimulatorStarted;
@@ -117,6 +140,7 @@
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    self.leapmotionEnable = NO;
     DJIFlightController* fc = [DemoComponentHelper fetchFlightController];
     if (fc && fc.simulator) {
         [fc.simulator removeObserver:self forKeyPath:@"isSimulatorStarted"];
