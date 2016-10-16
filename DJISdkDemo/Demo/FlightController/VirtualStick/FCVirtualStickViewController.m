@@ -72,14 +72,15 @@
     
     @try {
         if ([pos count]) {
-            self.logLabel0.text = pos[0];
-            self.logLabel1.text = pos[1];
-            self.logLabel2.text = pos[2];
-            self.logLabel3.text = pos[3];
-            mYVelocity = [pos[0] floatValue] * 15;
-            mXVelocity = [pos[1] floatValue] * 0;
-            mYaw = [pos[2] floatValue] * 0;
-            mThrottle = [pos[3] floatValue] * 0;
+            float k = 0.2;
+//            self.logLabel0.text = pos[0];
+//            self.logLabel1.text = pos[1];
+//            self.logLabel2.text = pos[2];
+//            self.logLabel3.text = pos[3];
+            mYVelocity = [pos[0] floatValue] * 20;
+            mXVelocity = [pos[1] floatValue] * 20;
+            mYaw = [pos[2] floatValue] * 30;
+            mThrottle = [pos[3] floatValue] * 2;
             [self updateJoystick];
         }
     } @catch (NSException *exception) {
@@ -294,11 +295,16 @@
 {
     // In rollPitchVelocity mode, the pitch property in DJIVirtualStickFlightControlData represents the Y direction velocity.
     // The roll property represents the X direction velocity.
+
     DJIVirtualStickFlightControlData ctrlData = {0};
     ctrlData.pitch = mYVelocity;
     ctrlData.roll = mXVelocity;
     ctrlData.yaw = mYaw;
     ctrlData.verticalThrottle = mThrottle;
+//    self.logLabel0.text = [NSString stringWithFormat:@"%f", ctrlData.roll];
+//    self.logLabel1.text = [NSString stringWithFormat:@"%f", ctrlData.pitch];
+//    self.logLabel2.text = [NSString stringWithFormat:@"%f", ctrlData.yaw];
+//    self.logLabel3.text = [NSString stringWithFormat:@"%f", ctrlData.verticalThrottle];
     DJIFlightController* fc = [DemoComponentHelper fetchFlightController];
     if (fc && fc.isVirtualStickControlModeAvailable) {
         [fc sendVirtualStickFlightControlData:ctrlData withCompletion:nil];
